@@ -1,4 +1,5 @@
-all: build test
+all: build
+	go test
 build:
 	go build
 test:
