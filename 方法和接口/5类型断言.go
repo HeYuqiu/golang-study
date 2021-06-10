@@ -10,6 +10,12 @@ func main() {
 	fmt.Println(s, ok)
 	f, ok := i.(float64)
 	fmt.Println(f, ok)
+	i = 10.1
+	ff, ok := i.(float64)
+	if ok {
+		fmt.Println(ff)
+	}
+	i = "hyq"
 	f = i.(float64) // 报错(panic)
 	fmt.Println(f)
 }
