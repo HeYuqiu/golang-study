@@ -24,7 +24,6 @@ func (v Vertex) Scale1(f float64) {
 }
 
 func main() {
-	
 	v := Vertex{3, 4}
 	fmt.Println("pre X", v.X)
 	v.Scale1(10)
