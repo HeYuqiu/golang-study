@@ -7,6 +7,7 @@ func strr(str *string) {
 }
 
 func main() {
+
 	str := "fff"
 	//strr(str) // 报错
 	//strr("fff") // 报错
