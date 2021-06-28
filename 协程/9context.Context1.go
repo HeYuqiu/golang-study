@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// ctx，类似线上上下文，当前协程和子协程共享；当前协程对ctx的操作，所有子协程都能感知到
+// ctx，类似线程上下文，当前协程和子协程共享；当前协程对ctx的操作，所有子协程都能感知到
 
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
