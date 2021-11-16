@@ -10,8 +10,9 @@ type Response1 struct {
 	Fruits []string
 }
 type Response2 struct {
-	Page   int      `json:"page"`
-	Fruits []string `json:"fruits"`
+	Page   int        `json:"page"`
+	Fruits []string   `json:"fruits"`
+	r      *Response1 `json:"r"`
 }
 
 func main() {
@@ -42,7 +43,9 @@ func main() {
 	// 在上面 Response2 的定义可以作为这个标签这个的一个例子。
 	res2D := &Response2{
 		Page:   1,
-		Fruits: []string{"apple", "peach", "pear"}}
+		Fruits: []string{"apple", "peach", "pear"},
+		r:      res1D,
+	}
 	res2B, _ := json.Marshal(res2D)
 	fmt.Println(string(res2B))
 	// 现在来看看解码 JSON 数据为 Go 值的过程。

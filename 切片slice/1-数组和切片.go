@@ -11,6 +11,10 @@ type person struct {
 	name string
 }
 
+type test struct {
+	ps []*person
+}
+
 func main() {
 	var arr = make([]person, 0)
 	arr = append(arr, person{
@@ -32,4 +36,14 @@ func main() {
 	println(len(slice1))
 	println(cap(slice1))
 
+	t := test{}
+	for _, eniObj := range t.ps {
+		if eniObj.name == "hyq" {
+			fmt.Println("fff")
+		}
+	}
+	t.ps = append(t.ps, &person{
+		name: "fff",
+	})
+	fmt.Println("fffaa")
 }
