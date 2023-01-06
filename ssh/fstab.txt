@@ -1,0 +1,6 @@
+UUID=1ba66da6-457e-4b64-b3ab-5d40677061a9  /        ext4  defaults,errors=remount-ro  0 1
+UUID=5E83-69BF  /boot/efi       vfat    umask=0077      0       1
+/dev/disk/by-id/virtio-cmuk6gfypmbnwlt3uxop /mnt/vdb ext4 defaults 0 0
+/mnt/vdb/containerd /var/lib/containerd none defaults,bind 0 0
+/mnt/vdb/containerd/log/pods /var/log/pods none defaults,bind 0 0
+/mnt/vdb/kubelet /var/lib/kubelet none defaults,bind 0 0

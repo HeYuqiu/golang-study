@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod-50
+  namespace: default
+spec:
+  containers:
+    - image: cr-cn-beijing.volces.com/vke_pre/nginx:1.21.0-debian-10-r0
+      name: nginx

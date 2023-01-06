@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"time"
@@ -29,7 +30,7 @@ func test() error {
 	go func() {
 		fmt.Println("method3 ...")
 		time.Sleep(5 * time.Second)
-		//channel <- errors.New("method3 err")
+		channel <- errors.New("method3 err")
 		channel <- nil
 	}()
 
