@@ -13,6 +13,10 @@ func main() {
 		name: "ffff",
 		age:  0,
 	}
+	delete(pp, "222")
+	delete(pp, "111")
+	delete(pp, "111")
+
 	pp["111"].mm["aaa"] = "ffff"
 	p, ok := pp["1222"]
 	if p == nil {

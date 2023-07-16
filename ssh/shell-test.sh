@@ -1,17 +1,29 @@
-KUBERNETES_VERSION="v1.20.15-vke.4"
-#KUBERNETES_VERSION="v1.20.12"
-CRD_NAME_pre="test-pod-xxx"
-for i in {1..50}
-do
-  CRD_NAME="test-pod-"${i}
-  echo $CRD_NAME
-  echo ${CRD_NAME_pre}
-  sed -i "" "4s/${CRD_NAME_pre}/${CRD_NAME}/g" temp.yaml
-  kubectl apply -f temp.yaml
-  CRD_NAME_pre=${CRD_NAME}
-  sleep 0.3
+## 20230629 测试环境模拟线上vke-cluster-controller informer问题，from 何玉秋
+for i in {1..500};do
+#  kubectl rollout restart deploy vke-cluster-controller -n vke-system
+  echo "执行完第${i}轮"
+  sleep 10
 done
 
+
+#sed -i 's/net.ipv6.conf.all.disable_ipv6 = 1/net.ipv6.conf.all.disable_ipv6 = 0/g' fstab.txt
+#sed -i 'hyqtest' fstab.txt
+#
+#KUBERNETES_VERSION="v1.20.15-vke.1"
+#KUBE_VERSION="v1.20.15-vke.6"
+#echo ${KUBERNETES_VERSION#*v1.20.15-vke.}
+#echo ${#KUBERNETES_VERSION}
+#
+
+#if [[ $KUBERNETES_VERSION == "v1.20.15-vke."* ]] && [[ ${#KUBERNETES_VERSION} -gt 14 || $KUBERNETES_VERSION < "v1.20.15-vke.4" ]]; then
+#    echo "fff"
+#fi
+#
+#if [[ $KUBERNETES_VERSION == "v1.20.15-vke."* ]]; then
+#  if [[ ${#KUBERNETES_VERSION} -gt 14 || $KUBERNETES_VERSION > "v1.20.15-vke.4" ]]; then
+#    echo "fff"
+#  fi
+#fi
 
 #CONTAINERD_MOUNT_DISK="vdb"
 #volumeID=$(cat /sys/block/"${CONTAINERD_MOUNT_DISK}"/serial)

@@ -3,28 +3,35 @@ package main
 import (
 	"fmt"
 	"sync"
-	"sync/atomic"
+	"time"
 )
 
 func main() {
 
-	var ops uint64
-
+	errCh := make(chan string, 5)
 	var wg sync.WaitGroup // 等待所有协程完成
+	wg.Add(5)
 
-	for i := 0; i < 50; i++ {
-		wg.Add(1)
-
-		go func() {
+	for i := 0; i < 5; i++ {
+		go func(n int) {
 			defer wg.Done()
-			for c := 0; c < 1000; c++ {
-
-				atomic.AddUint64(&ops, 1)
-			}
-		}()
+			time.Sleep(1 * time.Second)
+			errCh <- fmt.Sprintf("%d", n)
+		}(i)
 	}
 
 	wg.Wait()
+	var sss string
 
-	fmt.Println("ops:", ops)
+	for i := 0; i < 10; i++ {
+		select {
+		case sss = <-errCh:
+			fmt.Println("str:", sss)
+			fmt.Println(len(errCh))
+		default:
+			fmt.Println("default")
+		}
+	}
+
+	fmt.Println("ops:")
 }
