@@ -1,8 +1,11 @@
 ## 20230629 测试环境模拟线上vke-cluster-controller informer问题，from 何玉秋
 for i in {1..500};do
 #  kubectl rollout restart deploy vke-cluster-controller -n vke-system
+  kubectl apply -f ~/go/src/github.com/admission-webhook-example/v1/deployment/sleep-with-labels.yaml
   echo "执行完第${i}轮"
-  sleep 10
+  sleep 3
+  kubectl delete -f ~/go/src/github.com/admission-webhook-example/v1/deployment/sleep-with-labels.yaml
+  sleep 3
 done
 
 
