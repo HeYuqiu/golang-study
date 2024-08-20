@@ -17,7 +17,10 @@ function sendMessage() {
             coveragePrefix="https://badge.byted.org/ci/coverage/containernetworking"
             hrefPrefix="https://code.byted.org/containernetworking"
         fi
-        coverage=$(curl -s "$coveragePrefix/$repo/default" | awk -F "<|>" '{print $(NF-6)}')
+        coverage=$(curl -s "$coveragePrefix/$repo/master" | awk -F "<|>" '{print $(NF-6)}')
+        if [ $repo == "kube-extended-scheduler" ]; then
+            coverage=$(curl -s "$coveragePrefix/$repo/release-1.24-vke" | awk -F "<|>" '{print $(NF-6)}')
+        fi
         coverage="${coverage/\%}"
         data="$data$coverage $repo $hrefPrefix/$repo\n"
     done
@@ -36,11 +39,14 @@ function sendMessage() {
         else
             content="$content,[{\"tag\":\"a\",\"text\":\"$repo\",\"href\":\"$href\"},{\"tag\":\"text\",\"text\":\": $coverage%\"}]"
         fi
-    done <<< "$(echo -e "$data" | sort -n)"
+    done <<< "$(echo -e "$data" | sort -nr)"
 
     echo $content
-#    curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/$token" -H 'Authorization: Bearer t-8b2d47b17baxxxde101fbee' -H 'Content-Type: application/json' -d "{ \"email\": \"xuepengfei.xuepf@bytedance.com\", \"msg_type\": \"post\", \"content\": { \"post\": { \"zh_cn\": { \"title\": \"容器基础自研组件单测覆盖率报告\", \"content\": [$content] } } } }"
+#    curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/$token" -H 'Authorization: Bearer t-8b2d47b17ba55267c777840b803c866de101fbee' -H 'Content-Type: application/json' -d "{ \"email\": \"xuepengfei.xuepf@bytedance.com\", \"msg_type\": \"post\", \"content\": { \"post\": { \"zh_cn\": { \"title\": \"容器基础自研组件单测覆盖率报告\", \"content\": [$content] } } } }"
 }
 
-repos=(cloud-controller-manager alb-ingress-controller shuttle-operator dns-controller load-balancer-controller kube-extended-scheduler general-webhook vke-node-local-dns-admission node-job-helper vepfs-manager node-job-controller vke-vci-admission csi-driver cello catena vci-virtual-kubelet)
-sendMessage "71dbf3d0-8bba-4523-a4ae-0dbb4dbc561e" ${repos[*]}
+repos=(cloud-controller-manager alb-ingress-controller shuttle-operator dns-controller load-balancer-controller kube-extended-scheduler general-webhook vke-node-local-dns-admission node-job-helper node-job-controller vke-vci-admission csi-driver cello catena vci-virtual-kubelet vepfs-csi)
+
+#if [ "{{custom.target}}" == "group" ]; then
+    sendMessage "71dbf3d0-8bba-4523-a4ae-0dbb4dbc561e" ${repos[*]}
+#fi
